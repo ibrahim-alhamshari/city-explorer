@@ -5,9 +5,28 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-color: rgb(236, 231, 231);
 }
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+}
+label{
+  font-size: 25px;
+}
+input{
+  margin-left: 3%;
+  color: rgb(10, 10, 10);
+  font-size: 17px;
+}
+div img {
+  border-radius: 30px;
+}
+#submitId{
+  width: 20%;
+  border-radius: 10px;
+  background-color: burlywood;
+  margin-top: 5%;
+  font-size: 20;
 }

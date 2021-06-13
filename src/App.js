@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import ErrorBoundary from './Error';
+// import Image from 'react-bootstrap/Image';
+
 
 export class App extends Component {
   constructor(props) {
@@ -28,17 +31,17 @@ export class App extends Component {
     })
   }
 
-
   render() {
     return (
       <div>
+        <ErrorBoundary>
         <h2>City Explorer</h2>
         <form onSubmit={this.getAPIData}>
           <label>City name</label>
           <input type="text" onChange={this.updateCityName} />
           <br></br>
           <br></br>
-          <input type="submit" value="Explore!" />
+          <input type="submit" value="Explore!" id="submitId" />
         </form>
         {/*Conditional Render */}
         {this.state.displayData &&
@@ -46,7 +49,8 @@ export class App extends Component {
           <p>{this.state.cityData.display_name}</p>
           <img src={`https://maps.locationiq.com/v3/staticmap?key=pk.d36871f015649f915282f374cff76628&q&center=${this.state.cityData.lat},${this.state.cityData.lon}&zoom=15`} alt='' />
         </div>
-  }
+        }
+        </ErrorBoundary>
       </div>
       
     )
