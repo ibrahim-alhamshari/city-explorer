@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import ErrorBoundary from './Error';
+// import Image from 'react-bootstrap/Image';
 
 
 export class App extends Component {
