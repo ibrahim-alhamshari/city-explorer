@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import ErrorBoundary from './Error';
 
 
 export class App extends Component {
@@ -32,6 +33,7 @@ export class App extends Component {
   render() {
     return (
       <div>
+        <ErrorBoundary>
         <h2>City Explorer</h2>
         <form onSubmit={this.getAPIData}>
           <label>City name</label>
@@ -46,7 +48,8 @@ export class App extends Component {
           <p>{this.state.cityData.display_name}</p>
           <img src={`https://maps.locationiq.com/v3/staticmap?key=pk.d36871f015649f915282f374cff76628&q&center=${this.state.cityData.lat},${this.state.cityData.lon}&zoom=15`} alt='' />
         </div>
-  }
+        }
+        </ErrorBoundary>
       </div>
       
     )
