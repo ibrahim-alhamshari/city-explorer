@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 
+
 export class App extends Component {
   constructor(props) {
     super(props)
@@ -28,7 +29,6 @@ export class App extends Component {
     })
   }
 
-
   render() {
     return (
       <div>
@@ -38,7 +38,7 @@ export class App extends Component {
           <input type="text" onChange={this.updateCityName} />
           <br></br>
           <br></br>
-          <input type="submit" value="Explore!" />
+          <input type="submit" value="Explore!" id="submitId" />
         </form>
         {/*Conditional Render */}
         {this.state.displayData &&
