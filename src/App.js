@@ -8,7 +8,7 @@ import Image from 'react-bootstrap/Image';
 
 export class App extends Component {
   constructor(props) {
-    super(props)
+    super(props);
     this.state = {
       cityName: '',
       cityData: {},
@@ -17,35 +17,36 @@ export class App extends Component {
       message: 'please',
       alert: false,
       weatherData: '',
-    }
+    };
   }
 
   updateCityName = (e) => {
     this.setState({
-      cityName: e.target.value
-    })
+      cityName: e.target.value,
+    });
     console.log(this.state.cityName);
   }
 
   getAPIData = async (e) => {
     e.preventDefault();
-    try{
-    const axiosResponse = await axios.get(`https://us1.locationiq.com/v1/search.php?key=pk.00d7cd872eadb75fc70c28a8fb0a50b5&q=${this.state.cityName}&format=json`)
-
+    // try{
+    const axiosResponse = await axios.get(`https://us1.locationiq.com/v1/search.php?key=pk.00d7cd872eadb75fc70c28a8fb0a50b5&q=${this.state.cityName}&format=json`);
+    console.log(this.state.weatherData);
     const myApiRe = await axios.get(`${process.env.REACT_APP_URL}/weather-data`);
 
     this.setState({
       cityData: axiosResponse.data[0],
       displayData: true,
       weatherData: myApiRe.data.data,
-    })
-  }catch(error){
-this.setState({
-  error: error.message,
-  alert : true
-})
+    });
+    console.log(this.state.weatherData);
+    //   }catch(error){
+    // this.setState({
+    //   error: error.message,
+    //   alert : true
+    // })
   }
-  }
+  
 
   render() {
     return (
@@ -70,20 +71,21 @@ this.setState({
           <p>{this.state.cityData.display_name}</p>
           {/* <img src={`https://maps.locationiq.com/v3/staticmap?key=pk.d36871f015649f915282f374cff76628&q&center=${this.state.cityData.lat},${this.state.cityData.lon}&zoom=15`} alt='' /> */}
           <Image src={`https://maps.locationiq.com/v3/staticmap?key=pk.d36871f015649f915282f374cff76628&q&center=${this.state.cityData.lat},${this.state.cityData.lon}&zoom=15`} alt='' />
-        { this.state.weatherData.map(value =>{
-         return(<p>
-            {value.weather.description}
-          </p>);
-        }
-        )
+          { this.state.weatherData.map(value =>{
+            return(
+              <p>
+                {value.weather.description}
+              </p>);
+          },
+          )
          
-        }
+          }
         
         </div>
         }
       </div>
       
-    )
+    );
   }
 }
 
