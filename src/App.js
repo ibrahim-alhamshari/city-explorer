@@ -39,9 +39,9 @@ export class App extends Component {
           lat: axiosResponse.data[0].lat,
           lon: axiosResponse.data[0].lon,
         });
-        console.log(this.state.cityData);
+
       });
-      console.log(this.state.weatherData);
+   
       axios.get(`${process.env.REACT_APP_URL}/weather-data?lat=${this.state.lat}&lon=${this.state.lon}`).then(myApiRe=>{
         this.setState({
           weatherData: myApiRe.data,
@@ -85,12 +85,13 @@ export class App extends Component {
           { this.state.weatherData.map(value =>{
             return(
               <>
-                <p>
-                  {value.description}
-                </p>
-                <p>
-                  {value.date}
-                </p>
+                <ul class="list-group">
+                  <li class="list-group-item">
+                    <p>{value.description}</p>
+                    <p>{value.date}</p>
+                  </li>
+
+                </ul>
               </>
             );
           },
