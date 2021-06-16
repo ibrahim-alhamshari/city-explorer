@@ -86,7 +86,6 @@ export class App extends Component {
         {this.state.displayData &&
         
         <div>
-          console.log(this.state.movieData);
           <p>{this.state.cityData.display_name}</p>
           {/* <img src={`https://maps.locationiq.com/v3/staticmap?key=pk.d36871f015649f915282f374cff76628&q&center=${this.state.cityData.lat},${this.state.cityData.lon}&zoom=15`} alt='' /> */}
           <Image src={`https://maps.locationiq.com/v3/staticmap?key=pk.d36871f015649f915282f374cff76628&q&center=${this.state.cityData.lat},${this.state.cityData.lon}&zoom=15`} alt='' />
