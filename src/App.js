@@ -19,6 +19,7 @@ export class App extends Component {
       weatherData: '',
       lat: '',
       lon: '',
+      movieData: '',
     };
   }
 
@@ -47,8 +48,13 @@ export class App extends Component {
           weatherData: myApiRe.data,
           displayData: true,
         });
+      });
 
-        console.log(this.state.weatherData);
+      axios.get(`${process.env.REACT_APP_URL}/movie?cityName=${this.state.cityName}`).then(movieResponse =>{
+        this.setState({
+          movieData: movieResponse.data,
+        });
+        console.log(this.state.movieData);
       });
      
     }catch(error){
@@ -78,7 +84,9 @@ export class App extends Component {
         </form>
         {/*Conditional Render */}
         {this.state.displayData &&
-        <div id='responseStyle'>
+        
+        <div>
+          console.log(this.state.movieData);
           <p>{this.state.cityData.display_name}</p>
           {/* <img src={`https://maps.locationiq.com/v3/staticmap?key=pk.d36871f015649f915282f374cff76628&q&center=${this.state.cityData.lat},${this.state.cityData.lon}&zoom=15`} alt='' /> */}
           <Image src={`https://maps.locationiq.com/v3/staticmap?key=pk.d36871f015649f915282f374cff76628&q&center=${this.state.cityData.lat},${this.state.cityData.lon}&zoom=15`} alt='' />
@@ -90,13 +98,26 @@ export class App extends Component {
                     <p>{value.description}</p>
                     <p>{value.date}</p>
                   </li>
-
                 </ul>
               </>
             );
           },
           )
-         
+          }
+
+          {this.state.movieData.map(value=>{
+            return(
+              <ul id="movieElements">
+                <Image src={`https://image.tmdb.org/t/p/w500${value.poster_path}`} alt={value.title} />
+                <p>title: {value.title} </p>
+                <p>overview: {value.overview}</p>
+                <p>average_votes: {value.vote_average}</p>
+                <p>total_votes: {value.vote_count}</p>
+                <p>popularity: {value.popularity}</p>
+                <p>released_on: {value.release_date}</p>
+              </ul>
+            );
+          })
           }
         
         </div>
