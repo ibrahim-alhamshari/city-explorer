@@ -54,3 +54,12 @@ form {
   margin-left: 3%;
   margin-right: 80%;
 }
+
+#movieElements{
+  width: 70%;
+  border: brown;
+  border-width: 2px;
+  border-style: solid;
+  border-radius: 10px;
+  margin-left: 5%;
+}
