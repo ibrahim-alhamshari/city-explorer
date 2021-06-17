@@ -19,7 +19,9 @@ export class App extends Component {
       weatherData: '',
       lat: '',
       lon: '',
-      movieData: '',
+      movieData: [],
+      timeStamp: '',
+      dateState: [],
     };
   }
 
@@ -43,18 +45,27 @@ export class App extends Component {
 
       });
    
-      axios.get(`${process.env.REACT_APP_URL}/weather-data?lat=${this.state.lat}&lon=${this.state.lon}`).then(myApiRe=>{
+      await  axios.get(`${process.env.REACT_APP_URL}/weather-data?lat=${this.state.lat}&lon=${this.state.lon}`).then(myApiRe=>{
+        console.log(myApiRe);
+
         this.setState({
-          weatherData: myApiRe.data,
+          weatherData: myApiRe.data.cachedData,
+          timeStamp: myApiRe.data.timeStamp,
           displayData: true,
         });
-      });
+   
 
-      axios.get(`${process.env.REACT_APP_URL}/movie?cityName=${this.state.cityName}`).then(movieResponse =>{
+      });
+      console.log(this.state.weatherData);
+
+      await axios.get(`${process.env.REACT_APP_URL}/movie?cityName=${this.state.cityName}`).then(movieResponse =>{
+        console.log('movie response',movieResponse);
+      
         this.setState({
-          movieData: movieResponse.data,
+          movieData: movieResponse.data.cachedData,
+          dateState:new Date(this.state.timeStamp * 1000),
         });
-        console.log(this.state.movieData);
+        console.log(this.state.dateState);
       });
      
     }catch(error){
@@ -64,6 +75,7 @@ export class App extends Component {
       });
     }
   }
+  
 
   render() {
     return (
@@ -86,9 +98,13 @@ export class App extends Component {
         {this.state.displayData &&
         
         <div>
-          <p>{this.state.cityData.display_name}</p>
-          {/* <img src={`https://maps.locationiq.com/v3/staticmap?key=pk.d36871f015649f915282f374cff76628&q&center=${this.state.cityData.lat},${this.state.cityData.lon}&zoom=15`} alt='' /> */}
+          {/* { this.state.dateState.map(element =>{
+            return <p>{element}</p>;
+          })} */}
+        
+          <p>{this.state.cityData.display_name}</p> 
           <Image src={`https://maps.locationiq.com/v3/staticmap?key=pk.d36871f015649f915282f374cff76628&q&center=${this.state.cityData.lat},${this.state.cityData.lon}&zoom=15`} alt='' />
+          
           { this.state.weatherData.map(value =>{
             return(
               <>
